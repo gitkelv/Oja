@@ -92,18 +92,18 @@ class SiteActions {
     return {
       name: "record_quote",
       description:
-        "Put one dealer's answer on the quote board so the buyer can see it. Call this once for each dealer as soon as that dealer answers, before you have heard from the others. If a dealer failed or refused, record it with answered set to false and say why.",
+        "Put one dealer's answer on the quote board so the buyer can see it. Call this once for each dealer as soon as that dealer answers, before you have heard from the others.\n\nanswered is about whether the dealer replied, NOT about whether you liked the reply. Set it true whenever the dealer gave you a price, even if it cannot deliver to the buyer's location, even if the quantity is below its minimum, and even if it only quoted collection. Put that limitation in the delivery field, where the buyer needs it. Set answered false only when the dealer could not be reached at all, refused to quote, or does not carry the material.",
       effect: "write",
       inputSchema: {
         type: "object",
         properties: {
-          dealer: { type: "string", description: "The dealer's name, exactly as the dealer gave it." },
-          answered: { type: "boolean", description: "False if the dealer failed, refused or did not reply." },
+          dealer: { type: "string", description: "The dealer's business name only, with no address. 'Ilara Depot', not 'Ilara Depot, Ilara Junction, Lagos State'." },
+          answered: { type: "boolean", description: "True if the dealer gave a price, even one you cannot use. False only if it could not be reached, refused, or does not carry the material." },
           material: { type: "string", description: "What was quoted, e.g. Dangote cement 50kg bag." },
           unit_price_naira: { type: "number", description: "Price of one unit in naira, as the dealer stated it." },
           unit: { type: "string", description: "What one unit is, e.g. bag, length, tonne, block." },
           minimum_order: { type: "string", description: "The dealer's stated minimum order." },
-          delivery: { type: "string", description: "Delivery charge and window, as the dealer stated it." },
+          delivery: { type: "string", description: "Delivery charge and window as the dealer stated it. If the dealer cannot deliver to the buyer's location, say so here plainly: that is the most useful thing on the card." },
           price_date: { type: "string", description: "The date the dealer said the price was good for." },
           note: { type: "string", description: "Anything else the dealer said, or why it did not answer." },
         },
@@ -153,8 +153,11 @@ class SiteActions {
    * :return: The spread, or a note that there is not enough to compare.
    */
   static compareQuotes() {
+    // A price counts whether or not the dealer could deliver. Excluding a quote the
+    // buyer cannot use would hide the most useful fact on the board: that the
+    // cheapest price belongs to a dealer who cannot reach him.
     const priced = Board.quotes().filter(
-      (q) => q.answered && Number.isFinite(q.unit_price_naira) && q.unit_price_naira > 0,
+      (q) => Number.isFinite(q.unit_price_naira) && q.unit_price_naira > 0,
     );
     if (priced.length === 0) {
       return { ok: true, comparable: 0, note: "No dealer returned a price, so there is nothing to compare." };

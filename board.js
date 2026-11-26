@@ -176,6 +176,19 @@ class BoardState {
   }
 
   /**
+   * The business name alone, for a heading.
+   *
+   * A dealer may answer as "Ilara Depot, Ilara Junction, Lagos State". The address
+   * belongs on the dealer's own page, not wrapped across three lines of a card.
+   *
+   * :param name: The dealer name as given.
+   * :return: The part before the first comma.
+   */
+  static businessName(name) {
+    return String(name || "").split(",")[0].trim();
+  }
+
+  /**
    * Reduce a dealer name to something comparable.
    *
    * A dealer agent may answer as "Ilara Depot" or "Ilara Depot, Ilara Junction,
@@ -251,14 +264,19 @@ class BoardState {
    * :return: The card element.
    */
   static card(q) {
+    // A price is proof the dealer answered, whatever the flag says. A real quote
+    // shown as a failure is worse than a wrong colour: it tells the buyer a usable
+    // price does not exist, and it drops that dealer out of the comparison.
+    const priced = Number.isFinite(q.unit_price_naira) && q.unit_price_naira > 0;
+    const answered = q.answered || priced;
     const el = document.createElement("article");
-    el.className = q.answered ? "quote-card" : "quote-card quote-card-failed";
+    el.className = answered ? "quote-card" : "quote-card quote-card-failed";
 
     const name = document.createElement("h3");
-    name.textContent = q.dealer;
+    name.textContent = BoardState.businessName(q.dealer);
     el.appendChild(name);
 
-    if (!q.answered) {
+    if (!answered) {
       const why = document.createElement("p");
       why.className = "quote-failed-reason";
       why.textContent = q.note || "This dealer did not answer.";
