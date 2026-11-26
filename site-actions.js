@@ -189,5 +189,8 @@ class SiteActions {
   }
 }
 
+// The runtime calls the module's registerActions export. The methods above all
+// reference SiteActions by name rather than through `this`, so the function works
+// detached from the class.
+export const registerActions = SiteActions.registerActions;
 export { SiteActions };
-export default SiteActions;
