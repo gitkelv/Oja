@@ -222,8 +222,11 @@ class BoardState {
     if (gapPercent > 10) {
       const warn = document.createElement("p");
       warn.className = "spread-warning";
+      // Not a statement of policy. A buyer does not care what Ọjà refuses to do;
+      // he cares what to check before spending the money. A gap this wide almost
+      // always means the quotes are not comparable rather than one being a bargain.
       warn.textContent =
-        "These dealers disagree by more than ten per cent. That disagreement is the finding. Ọjà will not average them into one number.";
+        "A gap this wide usually means the quotes are not the same deal. Check each dealer's minimum order and whether they deliver to you before choosing on price alone.";
       el.appendChild(warn);
     }
     return el;
