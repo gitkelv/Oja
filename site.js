@@ -132,11 +132,23 @@ class Site {
   }
 
   /**
+   * Open the settings and follow-up panel.
+   */
+  static openPanel() {
+    const d = document.querySelector("#assistant-details");
+    if (d && !d.open) d.open = true;
+  }
+
+  /**
    * Show a problem with the question, next to the box that caused it.
+   *
+   * Opens the settings panel as well: the commonest reason a question fails is
+   * that no model is connected yet, and the connect button lives in there.
    *
    * :param message: What went wrong, in the buyer's terms.
    */
   static showAskError(message) {
+    Site.openPanel();
     let el = document.querySelector("#ask-error");
     if (!el) {
       el = document.createElement("p");
@@ -161,6 +173,7 @@ class Site {
    * :param err: Whatever boot threw.
    */
   static showBootFailure(err) {
+    Site.openPanel();
     const mount = document.querySelector("#app");
     if (!mount) return;
     mount.innerHTML = "";

@@ -1,30 +1,41 @@
-/* Ọjà.
-   A buyer comparing dealer prices is reading figures, not browsing a brochure, so the
-   page follows financial-information conventions: tabular numerals so prices align
-   down a column, dates never hidden, and colour used only where it carries meaning. */
+/* Ọjà design tokens.
+   Market green: trust and money, Nigerian without waving a flag. Amber is not
+   decoration here — it marks a stale price or a gap too wide to trust, so it is
+   reserved for exactly those two jobs and used nowhere else. Paper is warm rather
+   than white: this is a building-materials product, not a SaaS dashboard. */
 
 :root {
-  --ink: #16211e;
-  --ink-soft: #4a5a55;
-  --ink-faint: #74837e;
-  --line: #d9e0dd;
-  --line-strong: #b4c2bd;
-  --paper: #fbfaf7;
-  --card: #ffffff;
-  --green: #0f6e56;
-  --green-deep: #085041;
-  --green-wash: #e1f5ee;
-  --amber: #854f0b;
-  --amber-wash: #faeeda;
-  --red: #a32d2d;
-  --red-wash: #fcebeb;
-  --red-line: #f09595;
-  --red-ink: #791f1f;
-  --green-line: #5dcaa5;
-  --amber-line: #ef9f27;
-  --amber-ink: #633806;
-  --radius: 10px;
-  --measure: 62ch;
+  /* brand */
+  --green: #0B5D45;
+  --green-deep: #074436;
+  --green-wash: #E6F0EC;
+  --green-line: #9CC4B6;
+  --amber: #D98C2B;
+  --amber-deep: #8A5410;
+  --amber-wash: #FBF1E2;
+  --amber-line: #E8BE84;
+
+  /* surfaces */
+  --paper: #F7F5EF;
+  --card: #FFFFFF;
+  --line: #E2E0D8;
+  --line-strong: #C7C4B8;
+
+  /* ink */
+  --ink: #1A1A17;
+  --ink-soft: #52554E;
+  --ink-faint: #7A7D74;
+
+  /* states */
+  --red: #A32D2D;
+  --red-wash: #FBEAEA;
+  --red-line: #E8A5A5;
+  --red-ink: #7A1F1F;
+
+  /* form */
+  --radius: 12px;
+  --radius-sm: 8px;
+  --measure: 60ch;
 }
 
 * { box-sizing: border-box; }
@@ -39,9 +50,10 @@ body {
   font-size: 17px;
   line-height: 1.6;
   font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
 }
 
-.wrap { width: min(1080px, 100% - 2.5rem); margin-inline: auto; }
+.wrap { width: min(1040px, 100% - 2.5rem); margin-inline: auto; }
 
 .visually-hidden {
   position: absolute; width: 1px; height: 1px;
@@ -49,75 +61,87 @@ body {
   clip-path: inset(50%); white-space: nowrap;
 }
 
-/* masthead */
+/* masthead: the mark and the name, nothing else. Navigation a visitor does not
+   need is navigation that makes a product feel like an admin tool. */
 
-.masthead {
-  border-bottom: 1px solid var(--line);
-  background: var(--card);
-  padding-block: 1.1rem;
+.masthead { background: var(--card); border-bottom: 1px solid var(--line); }
+.brand {
+  display: inline-flex; align-items: center; gap: .6rem;
+  padding: .9rem 0; text-decoration: none; color: inherit;
 }
-.masthead .wrap { display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
-.wordmark {
-  margin: 0;
-  font-size: 1.6rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  color: var(--green-deep);
+.mark { width: 28px; height: 28px; flex: none; }
+.mark rect { fill: var(--green); }
+.mark .mark-accent { fill: var(--amber); }
+.wordmark { font-size: 1.35rem; font-weight: 600; letter-spacing: -0.02em; color: var(--ink); }
+
+/* hero */
+
+.hero { padding: 3rem 0 2.5rem; }
+h1 {
+  font-size: clamp(1.75rem, 6vw, 2.6rem);
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  margin: 0 0 .75rem;
+  max-width: 18ch;
 }
-.tagline { margin: 0; color: var(--ink-faint); font-size: 0.95rem; }
+.lede { margin: 0 0 1.75rem; color: var(--ink-soft); max-width: var(--measure); font-size: 1.05rem; }
 
-main { padding-block: 2.5rem 3.5rem; display: grid; gap: 3rem; }
-
-h1 { font-size: 1.9rem; line-height: 1.25; margin: 0 0 0.6rem; letter-spacing: -0.015em; }
-h2 { font-size: 1.15rem; margin: 0 0 0.75rem; letter-spacing: -0.005em; }
-h3 { font-size: 1rem; margin: 0 0 0.35rem; }
-
-.lede { max-width: var(--measure); color: var(--ink-soft); margin: 0 0 1.5rem; }
-
-/* ask */
-
-.ask-form { display: flex; gap: 0.6rem; flex-wrap: wrap; max-width: 46rem; }
+.ask-form { display: flex; gap: .6rem; flex-wrap: wrap; max-width: 44rem; }
 .ask-form input {
-  flex: 1 1 22rem;
-  min-width: 0;
-  padding: 0.8rem 0.9rem;
-  font: inherit;
-  color: var(--ink);
-  background: var(--card);
-  border: 1px solid var(--line-strong);
+  flex: 1 1 20rem; min-width: 0;
+  padding: .95rem 1rem; font: inherit; color: var(--ink);
+  background: var(--card); border: 1px solid var(--line-strong);
   border-radius: var(--radius);
 }
+.ask-form input::placeholder { color: var(--ink-faint); }
 .ask-form input:focus-visible { outline: 2px solid var(--green); outline-offset: 1px; border-color: var(--green); }
 .ask-form button {
-  padding: 0.8rem 1.3rem;
-  font: inherit;
-  font-weight: 500;
-  color: #fff;
-  background: var(--green);
-  border: 1px solid var(--green);
-  border-radius: var(--radius);
-  cursor: pointer;
+  padding: .95rem 1.4rem; font: inherit; font-weight: 500;
+  color: #fff; background: var(--green);
+  border: 1px solid var(--green); border-radius: var(--radius); cursor: pointer;
+  min-height: 44px;
 }
 .ask-form button:hover { background: var(--green-deep); border-color: var(--green-deep); }
 .ask-form button:focus-visible { outline: 2px solid var(--green-deep); outline-offset: 2px; }
-.ask-form button[disabled] { opacity: 0.55; cursor: progress; }
+.ask-form button[disabled] { opacity: .6; cursor: progress; }
 
-.examples { list-style: none; display: flex; flex-wrap: wrap; gap: 0.5rem; padding: 0; margin: 0.9rem 0 0; }
+.examples { list-style: none; display: flex; flex-wrap: wrap; gap: .5rem; padding: 0; margin: 1rem 0 0; }
 .example {
-  font: inherit;
-  font-size: 0.88rem;
-  color: var(--ink-soft);
-  background: transparent;
-  border: 1px dashed var(--line-strong);
-  border-radius: 999px;
-  /* 44px minimum: these are tapped with a thumb, not clicked with a mouse. */
-  min-height: 44px;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  text-align: left;
+  font: inherit; font-size: .9rem; color: var(--ink-soft);
+  background: var(--card); border: 1px solid var(--line);
+  border-radius: 999px; min-height: 44px; padding: .5rem 1rem;
+  cursor: pointer; text-align: left;
 }
-.example:hover { color: var(--green-deep); border-color: var(--green); border-style: solid; }
+.example:hover { color: var(--green-deep); border-color: var(--green-line); }
 .example:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+
+.board-section { padding-bottom: 2.5rem; }
+.panel-section { padding-bottom: 3rem; }
+
+/* the agent panel is a tool, not the product. It stays closed until wanted. */
+
+#assistant-details {
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+}
+#assistant-details > summary {
+  cursor: pointer; padding: 1rem 1.2rem; list-style: none;
+  display: flex; flex-direction: column; gap: .15rem; min-height: 44px;
+}
+#assistant-details > summary::-webkit-details-marker { display: none; }
+#assistant-details > summary:focus-visible { outline: 2px solid var(--green); outline-offset: -2px; border-radius: var(--radius); }
+.summary-title { font-weight: 500; }
+.summary-hint { font-size: .88rem; color: var(--ink-faint); }
+#app { border-top: 1px solid var(--line); padding: .5rem; min-height: 9rem; }
+
+/* footer carries the disclosure: present and findable, not shouted */
+
+footer { border-top: 1px solid var(--line); background: var(--card); padding: 2.5rem 0 3.5rem; }
+footer h2 { font-size: 1rem; margin: 0 0 1rem; }
+.disclosure-list { margin: 0 0 1.75rem; display: grid; gap: .55rem 1.5rem; grid-template-columns: 8rem 1fr; }
+.disclosure-list dt { font-weight: 500; color: var(--green-deep); font-size: .92rem; }
+.disclosure-list dd { margin: 0; color: var(--ink-soft); max-width: var(--measure); font-size: .92rem; }
+.colophon { margin: 0; font-size: .85rem; color: var(--ink-faint); }
+.colophon a { color: var(--green-deep); }
 
 /* board */
 
@@ -191,7 +215,7 @@ h3 { font-size: 1rem; margin: 0 0 0.35rem; }
 
 .spread-wide { background: var(--amber-wash); border-color: var(--amber-line); }
 .spread-wide h3, .spread-wide .spread-gap { color: var(--amber); }
-.spread-warning { margin: 0.7rem 0 0; font-size: 0.92rem; color: var(--amber-ink); max-width: var(--measure); }
+.spread-warning { margin: 0.7rem 0 0; font-size: 0.92rem; color: var(--amber-deep); max-width: var(--measure); }
 
 /* assistant */
 
@@ -204,48 +228,16 @@ h3 { font-size: 1rem; margin: 0 0 0.35rem; }
   padding: 0.5rem;
 }
 
-/* disclosure */
-
-.disclosure {
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 1.3rem 1.4rem;
-}
-.disclosure-list { margin: 0; display: grid; gap: 0.5rem 1.2rem; grid-template-columns: 7.5rem 1fr; }
-.disclosure-list dt { font-weight: 500; color: var(--green-deep); }
-.disclosure-list dd { margin: 0; color: var(--ink-soft); max-width: var(--measure); font-size: 0.94rem; }
-
-footer { padding-bottom: 3rem; }
-footer p { color: var(--ink-faint); font-size: 0.86rem; max-width: var(--measure); margin: 0; border-top: 1px solid var(--line); padding-top: 1.2rem; }
 
 @media (max-width: 34rem) {
   body { font-size: 16px; }
-  h1 { font-size: 1.55rem; }
-  .disclosure-list { grid-template-columns: 1fr; gap: 0.15rem; }
-  .disclosure-list dd { margin-bottom: 0.7rem; }
+  .hero { padding: 2rem 0 1.75rem; }
+  .disclosure-list { grid-template-columns: 1fr; gap: .1rem; }
+  .disclosure-list dd { margin-bottom: .8rem; }
   .quote-price { font-size: 1.6rem; }
+  .ask-form button { flex: 1 1 100%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
-
-/* The dealer disclosure, rendered by the page rather than generated by each dealer.
-   A page-owned disclosure cannot be softened or omitted by a model having an off turn,
-   and three agents writing the same sentence is time the buyer waits through. */
-.quote-status {
-  margin: .7rem 0 0;
-  padding-top: .6rem;
-  border-top: 1px solid var(--line);
-  font-size: .8rem;
-  color: var(--ink-faint);
-}
-.quote-card-failed .quote-status { border-top-color: #f09595; color: var(--red-ink); }
-
-/* A dealer that has not answered yet. Asking three dealers one at a time takes
-   minutes; showing who is still to come is the difference between a page that
-   looks slow and a page that looks broken. */
-.quote-card-waiting { background: transparent; border-style: dashed; }
-.quote-card-waiting h3 { color: var(--ink-faint); }
-.quote-waiting { margin: .3rem 0 0; font-size: .9rem; color: var(--ink-faint); }

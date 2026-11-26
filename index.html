@@ -6,105 +6,111 @@
     <title>Ọjà — what building materials actually cost this week</title>
     <meta
       name="description"
-      content="Ọjà asks several independent Nigerian building-materials dealers for a quote at once and lays their answers side by side, each one dated and attributed. It never averages them."
+      content="Ask several independent Nigerian building-materials dealers for a quote at once. Every answer stays separate, dated and attributed."
     />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="styles.css" />
     <script type="module" src="site.js"></script>
   </head>
   <body>
     <header class="masthead">
       <div class="wrap">
-        <p class="wordmark">Ọjà</p>
-        <p class="tagline">What building materials actually cost this week</p>
+        <a class="brand" href="./" aria-label="Ọjà, home">
+          <svg class="mark" viewBox="0 0 48 48" aria-hidden="true">
+            <rect x="6" y="22" width="9" height="20" rx="2" />
+            <rect x="19" y="12" width="9" height="30" rx="2" />
+            <rect class="mark-accent" x="32" y="17" width="9" height="25" rx="2" />
+          </svg>
+          <span class="wordmark">Ọjà</span>
+        </a>
       </div>
     </header>
 
-    <main class="wrap">
-      <section class="ask" aria-labelledby="ask-heading">
-        <h1 id="ask-heading">Ask every dealer at once</h1>
-        <p class="lede">
-          A bag of cement can cost ₦9,600 or ₦14,000 depending on who you ask and when.
-          The price lists online contradict each other by nearly double, and dealers change
-          their rates within days. Ask here once and every dealer answers for themselves,
-          with the date their price was good for.
-        </p>
+    <main>
+      <section class="hero">
+        <div class="wrap">
+          <h1>What does cement actually cost today?</h1>
+          <p class="lede">
+            A bag runs ₦9,600 or ₦14,000 depending on who you ask and when. Ask once here,
+            and every dealer answers for themselves.
+          </p>
 
-        <form id="ask-form" class="ask-form">
-          <label for="ask-input" class="visually-hidden">What do you need?</label>
-          <input
-            id="ask-input"
-            name="ask"
-            type="text"
-            autocomplete="off"
-            placeholder="600 bags of Dangote cement delivered to Ikorodu"
-          />
-          <button type="submit">Ask the dealers</button>
-        </form>
+          <form id="ask-form" class="ask-form">
+            <label for="ask-input" class="visually-hidden">What do you need?</label>
+            <input
+              id="ask-input"
+              name="ask"
+              type="text"
+              autocomplete="off"
+              enterkeyhint="send"
+              placeholder="600 bags of Dangote cement, Ikorodu"
+            />
+            <button type="submit">Ask the dealers</button>
+          </form>
 
-        <ul class="examples" aria-label="Example questions">
-          <li><button type="button" class="example">600 bags of Dangote cement delivered to Ikorodu</button></li>
-          <li><button type="button" class="example">One tonne of 12mm rebar, collected</button></li>
-          <li><button type="button" class="example">2000 nine-inch blocks, Ilara Junction</button></li>
-        </ul>
+          <ul class="examples" aria-label="Try one of these">
+            <li><button type="button" class="example">600 bags of Dangote cement delivered to Ikorodu</button></li>
+            <li><button type="button" class="example">One tonne of 12mm rebar, collected</button></li>
+            <li><button type="button" class="example">2000 nine-inch blocks, Ilara Junction</button></li>
+          </ul>
+        </div>
       </section>
 
-      <section class="board-section" aria-labelledby="board-heading">
-        <h2 id="board-heading">The quote board</h2>
-        <p id="board-empty" class="board-empty">
-          Ask above, and every dealer answers here on its own card — price, minimum order,
-          delivery and the date it quoted. Expect a couple of minutes: each dealer is a
-          separate business being asked a real question.
-        </p>
-        <div id="board"></div>
-        <p id="board-status" class="visually-hidden" role="status" aria-live="polite"></p>
+      <section class="board-section">
+        <div class="wrap">
+          <p id="board-empty" class="board-empty">
+            Every dealer answers here on its own card — price, minimum order, delivery and the
+            date it quoted. A run takes a couple of minutes: each dealer is a separate
+            business being asked a real question.
+          </p>
+          <div id="board"></div>
+          <p id="board-status" class="visually-hidden" role="status" aria-live="polite"></p>
+        </div>
       </section>
 
-      <section class="assistant-section" aria-labelledby="assistant-heading">
-        <h2 id="assistant-heading">Follow up</h2>
-        <p class="assistant-intro">
-          Ask about anything on the board — what a quantity would actually cost, whether a
-          dealer can reach you, why two of them disagree.
-        </p>
-        <div id="app"></div>
+      <section class="panel-section">
+        <div class="wrap">
+          <details id="assistant-details">
+            <summary>
+              <span class="summary-title">Follow-up questions and model settings</span>
+              <span class="summary-hint">Ask what a quantity would cost, or connect your AI provider</span>
+            </summary>
+            <div id="app"></div>
+          </details>
+        </div>
       </section>
+    </main>
 
-      <section class="disclosure" aria-labelledby="disclosure-heading">
-        <h2 id="disclosure-heading">What is real here, and what is not</h2>
+    <footer>
+      <div class="wrap">
+        <h2>What is real here, and what is not</h2>
         <dl class="disclosure-list">
           <dt>Working</dt>
           <dd>
             The agent networks, the browser runtime, the cross-origin calls to each dealer,
-            the consent step before every contact, and the arithmetic behind every total.
+            the approval step before every contact, and the arithmetic behind every total.
           </dd>
           <dt>Representative</dt>
           <dd>
-            The three dealers are published by this project to demonstrate the protocol.
-            They are fictional businesses in an invented town, Ilara Junction. Their prices
-            are drawn from dated published Nigerian market reporting, cited on each dealer's
-            own page.
+            The three dealers are published by this project to demonstrate the protocol. They
+            are fictional businesses in an invented town, Ilara Junction. Their prices come
+            from dated published Nigerian market reporting, cited on each dealer's own page.
           </dd>
           <dt>Not real</dt>
-          <dd>
-            This is not live dealer inventory and nothing here can be bought. No order you
-            place goes anywhere.
-          </dd>
+          <dd>This is not live dealer inventory, and nothing here can be bought.</dd>
           <dt>No single price</dt>
           <dd>
-            Ọjà never merges dealer quotes into one figure. Published Nigerian cement prices
-            already contradict each other by nearly double, and averaging contradictory
-            sources is what makes those price lists useless — it turns a disagreement you
-            could have acted on into a confident number that is wrong. Each dealer stays
-            separate, with the date it quoted.
+            Ọjà never merges quotes into one figure. Published Nigerian cement prices already
+            contradict each other by nearly double, and averaging contradictory sources is
+            what makes those lists useless: it turns a disagreement you could have acted on
+            into a confident number that is wrong.
           </dd>
         </dl>
-      </section>
-    </main>
-
-    <footer class="wrap">
-      <p>
-        Ọjà is an entry in the Open Agentic Web Challenge, built to the Worldwide Agentic
-        Web MVP Profile 0.3. Open source, MIT licensed.
-      </p>
+        <p class="colophon">
+          An entry in the Open Agentic Web Challenge, built to the Worldwide Agentic Web MVP
+          Profile 0.3. <a href="./checks/">Conformance checks</a> · Open source, MIT licensed.
+        </p>
+      </div>
     </footer>
   </body>
 </html>
