@@ -167,6 +167,14 @@ class BoardState {
       note.textContent = q.note;
       el.appendChild(note);
     }
+
+    // Rendered here rather than asked of the dealer. Three agents generating the
+    // same sentence costs time the buyer waits through, and a disclosure the page
+    // controls cannot be softened or dropped by a dealer having an off turn.
+    const status = document.createElement("p");
+    status.className = "quote-status";
+    status.textContent = "Representative demonstration dealer — not live inventory, nothing can be bought.";
+    el.appendChild(status);
     return el;
   }
 
