@@ -21,6 +21,12 @@ class Site {
   static dealerNames = [];
 
   /**
+   * Link reference to dealer name, from the manifest. The runtime announces a peer
+   * by its reference ("sabo_road"); the visitor should be asked about a business.
+   */
+  static dealerLabels = new Map();
+
+  /**
    * Boot the runtime and wire the page.
    *
    * :return: Nothing. Failures are reported on the page, not thrown away.
@@ -67,14 +73,19 @@ class Site {
   static takeOverConsent(engine) {
     const runtimeHandler = engine.onConsent;
     engine.onConsent = (info) => {
-      const label = info?.peerLabel;
-      if (!label) return runtimeHandler ? runtimeHandler(info) : Promise.resolve("decline");
+      const raw = info?.peerLabel;
+      if (!raw) return runtimeHandler ? runtimeHandler(info) : Promise.resolve("decline");
+      const label = Site.dealerLabels.get(raw) || raw;
       return new Promise((resolve) => {
         Board.setConsent({
           label,
           origin: info.peerOrigin || "",
           requestText: info.requestText || "",
           decide: (decision) => {
+            if (decision === "allow" || decision === "always") {
+              Board.markApproved(label);
+              Board.markApproved(raw);
+            }
             Board.clearConsent();
             resolve(decision);
           },
@@ -91,8 +102,12 @@ class Site {
     try {
       const res = await fetch(`${Site.basePath()}/agent-manifest.json`);
       const manifest = await res.json();
-      const names = (manifest.linking?.imports || []).map((i) => i.label).filter(Boolean);
+      const imports = manifest.linking?.imports || [];
+      const names = imports.map((i) => i.label).filter(Boolean);
       if (names.length) Site.dealerNames = names;
+      for (const i of imports) {
+        if (i.reference && i.label) Site.dealerLabels.set(i.reference, i.label);
+      }
     } catch {
       // Not fatal: without it the board simply fills in as answers arrive.
     }

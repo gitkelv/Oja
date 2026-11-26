@@ -15,6 +15,26 @@ class BoardState {
     this._request = "";
     this._expected = [];
     this._consent = null;
+    this._approved = new Set();
+  }
+
+  /**
+   * Record that the visitor approved contacting a dealer.
+   *
+   * :param name: The dealer's name or reference.
+   */
+  markApproved(name) {
+    this._approved.add(BoardState.key(name));
+  }
+
+  /**
+   * Whether the visitor has approved contacting a dealer.
+   *
+   * :param name: The dealer's name or reference.
+   * :return: True once approved.
+   */
+  isApproved(name) {
+    return this._approved.has(BoardState.key(name));
   }
 
   /**
@@ -124,6 +144,8 @@ class BoardState {
   reset() {
     this._quotes = [];
     this._spread = null;
+    this._approved = new Set();
+    this._consent = null;
     this.render();
   }
 

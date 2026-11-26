@@ -124,6 +124,20 @@ class SiteActions {
     if (!args.dealer || !String(args.dealer).trim()) {
       return { ok: false, reason: "A quote needs the dealer's name.", field: "dealer" };
     }
+    // A price can only come from a dealer that was actually reached, and a dealer
+    // is only reached after the visitor approves the contact. A model that fills
+    // the wait with a plausible answer would publish an invented price under a real
+    // dealer's name, which is the one thing this product must never do.
+    const priced = Number.isFinite(args.unit_price_naira) && args.unit_price_naira > 0;
+    if (priced && !Board.isApproved(args.dealer)) {
+      return {
+        ok: false,
+        reason:
+          `Refused: ${args.dealer} has not been contacted yet, so there is no price to record. ` +
+          "Wait for that dealer's own answer. Never write a price, a minimum order, a delivery term or a date that a dealer did not give you in this conversation.",
+        field: "dealer",
+      };
+    }
     Board.addQuote(args);
     return { ok: true, on_board: Board.count(), note: "Shown on the quote board." };
   }
