@@ -1,0 +1,61 @@
+{
+  "brand": "Ilara Depot",
+  "networks": [
+    {
+      "name": "ilara_depot",
+      "front_man": "ilara_price_desk",
+      "hocon": "./ilara_depot.network.json",
+      "description": "Building-materials prices for Ilara Junction, Lagos State: cement, reinforcement bar and blocks, with minimum order and delivery window. Representative demonstration dealer.",
+      "tags": [
+        "agentified-website",
+        "nigeria",
+        "building-materials",
+        "dealer",
+        "demonstration"
+      ],
+      "sample_queries": [
+        "What does a bag of Dangote cement cost?",
+        "Price for 600 bags delivered to Ikorodu",
+        "Do you carry 16mm rebar?"
+      ]
+    }
+  ],
+  "llm_router": {
+    "base_url": "https://api.otari.ai/api/v1",
+    "mock": false,
+    "byok_router": "https://api.otari.ai/api/v1"
+  },
+  "allowed_peers": [],
+  "peer_policy": {
+    "mode": "closed",
+    "deny_origins": [],
+    "note": "Ilara Depot calls no peers. It answers its own price book only."
+  },
+  "theme": {
+    "primary": "#993C1D"
+  },
+  "linking": {
+    "protocol": "nsdeploy-link/v1",
+    "exports": [
+      {
+        "network": "ilara_depot",
+        "front_man": "ilara_price_desk",
+        "aliases": [
+          "ilara_depot",
+          "ilara_price_desk"
+        ],
+        "url": "ilara_depot"
+      }
+    ],
+    "imports": []
+  },
+  "disclosure": {
+    "status": "representative demonstration",
+    "note": "Ilara Depot is not a real business and Ilara Junction is an invented town. Prices are drawn from dated published Nigerian market reporting, quoted as at 20 November 2026, and are not live inventory. Nothing here can be bought.",
+    "price_sources": [
+      "Daily Trust, market survey of building-material hubs, 2026 — Dangote and BUA bag prices",
+      "Nigerian Construction Cost Tracker Q3 2026 — Lagos block and rebar ranges, truckload pricing",
+      "Legit.ng dealer price reporting, 2026 — bulk truckload rate"
+    ]
+  }
+}

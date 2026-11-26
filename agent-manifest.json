@@ -1,0 +1,73 @@
+{
+  "brand": "Ọjà",
+  "networks": [
+    {
+      "name": "oja",
+      "front_man": "oja_desk",
+      "hocon": "./oja.network.json",
+      "description": "Ask several independent Nigerian building-materials dealers for a quote at once. Each answer stays separate, dated and attributed.",
+      "tags": [
+        "agentified-website",
+        "nigeria",
+        "building-materials",
+        "price-discovery"
+      ],
+      "sample_queries": [
+        "600 bags of Dangote cement delivered to Ikorodu",
+        "How much for 12mm rebar, one tonne, picked up?",
+        "I need 500 bags of cement and 2000 nine-inch blocks",
+        "Who can deliver cement this week?"
+      ]
+    }
+  ],
+  "llm_router": {
+    "base_url": "https://api.otari.ai/api/v1",
+    "mock": false,
+    "byok_router": "https://api.otari.ai/api/v1"
+  },
+  "allowed_peers": [
+    "http://127.0.0.1:8081",
+    "http://127.0.0.1:8082",
+    "http://127.0.0.1:8083"
+  ],
+  "peer_policy": {
+    "mode": "closed",
+    "deny_origins": [],
+    "note": "Ọjà contacts only the dealer sites listed in allowed_peers, and only after the visitor approves each origin. Every other origin is refused and the refusal is shown on the page."
+  },
+  "theme": {
+    "primary": "#0F6E56"
+  },
+  "linking": {
+    "protocol": "nsdeploy-link/v1",
+    "exports": [
+      {
+        "network": "oja",
+        "front_man": "oja_desk",
+        "aliases": [
+          "oja",
+          "oja_desk"
+        ],
+        "url": "oja"
+      }
+    ],
+    "imports": [
+      {
+        "reference": "ilara_depot",
+        "label": "Ilara Depot"
+      },
+      {
+        "reference": "adunni_supply",
+        "label": "Adunni Building Supply"
+      },
+      {
+        "reference": "sabo_road",
+        "label": "Sabo Road Materials"
+      }
+    ]
+  },
+  "disclosure": {
+    "status": "representative demonstration",
+    "note": "The three dealer sites Ọjà contacts are published by this project to demonstrate the protocol. The dealers are fictional businesses in an invented town. Their prices are drawn from dated published market reporting, cited on each dealer's page. This is not live dealer inventory and nothing here can be bought."
+  }
+}
