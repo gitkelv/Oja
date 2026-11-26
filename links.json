@@ -2,9 +2,9 @@
   "version": 1,
   "networks": {
     "oja": {
-      "ilara_depot": "http://127.0.0.1:8081/ilara_depot",
-      "adunni_supply": "http://127.0.0.1:8082/adunni_supply",
-      "sabo_road": "http://127.0.0.1:8083/sabo_road"
+      "ilara_depot": "https://oja-ilara-depot.pages.dev/ilara_depot",
+      "adunni_supply": "https://oja-adunni-supply.pages.dev/adunni_supply",
+      "sabo_road": "https://oja-sabo-road.pages.dev/sabo_road"
     }
   }
 }

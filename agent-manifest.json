@@ -26,6 +26,9 @@
     "byok_router": "https://api.otari.ai/api/v1"
   },
   "allowed_peers": [
+    "https://oja-ilara-depot.pages.dev",
+    "https://oja-adunni-supply.pages.dev",
+    "https://oja-sabo-road.pages.dev",
     "http://127.0.0.1:8081",
     "http://127.0.0.1:8082",
     "http://127.0.0.1:8083"
@@ -33,7 +36,7 @@
   "peer_policy": {
     "mode": "closed",
     "deny_origins": [],
-    "note": "Ọjà contacts only the dealer sites listed in allowed_peers, and only after the visitor approves each origin. Every other origin is refused and the refusal is shown on the page."
+    "note": "Ọjà contacts only the dealer sites listed in allowed_peers, and only after the visitor approves each origin. Every other origin is refused and the refusal is shown on the page. The loopback entries are for local development only."
   },
   "theme": {
     "primary": "#0F6E56"

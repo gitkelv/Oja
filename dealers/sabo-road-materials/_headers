@@ -1,0 +1,14 @@
+# Public agent artifacts must be readable by other sites' browsers.
+# Without this, a caller's browser refuses the response and the peer handoff
+# fails silently — which is the single most likely way this deployment breaks.
+/agent-manifest.json
+  Access-Control-Allow-Origin: *
+  Cache-Control: no-store
+
+/*.network.json
+  Access-Control-Allow-Origin: *
+  Cache-Control: no-store
+
+/links.json
+  Access-Control-Allow-Origin: *
+  Cache-Control: no-store
