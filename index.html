@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ọjà — what building materials actually cost this week</title>
+    <meta
+      name="description"
+      content="Ọjà asks several independent Nigerian building-materials dealers for a quote at once and lays their answers side by side, each one dated and attributed. It never averages them."
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script type="module" src="site.js"></script>
+  </head>
+  <body>
+    <header class="masthead">
+      <div class="wrap">
+        <p class="wordmark">Ọjà</p>
+        <p class="tagline">What building materials actually cost this week</p>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <section class="ask" aria-labelledby="ask-heading">
+        <h1 id="ask-heading">Ask every dealer at once</h1>
+        <p class="lede">
+          Cement prices in Nigeria move within days, and the price lists online contradict
+          each other by nearly double. Ọjà asks dealers directly, from your browser, and
+          shows you what each one said — with the date they said it.
+        </p>
+
+        <form id="ask-form" class="ask-form">
+          <label for="ask-input" class="visually-hidden">What do you need?</label>
+          <input
+            id="ask-input"
+            name="ask"
+            type="text"
+            autocomplete="off"
+            placeholder="600 bags of Dangote cement delivered to Ikorodu"
+          />
+          <button type="submit">Ask the dealers</button>
+        </form>
+
+        <ul class="examples" aria-label="Example questions">
+          <li><button type="button" class="example">600 bags of Dangote cement delivered to Ikorodu</button></li>
+          <li><button type="button" class="example">One tonne of 12mm rebar, collected</button></li>
+          <li><button type="button" class="example">2000 nine-inch blocks, Ilara Junction</button></li>
+        </ul>
+      </section>
+
+      <section class="board-section" aria-labelledby="board-heading">
+        <h2 id="board-heading">The quote board</h2>
+        <p id="board-empty" class="board-empty">
+          Nothing asked yet. Each dealer you contact will appear here as its own card, with
+          its own price and its own date. Ọjà will never merge them into a single figure.
+        </p>
+        <div id="board" aria-live="polite"></div>
+      </section>
+
+      <section class="assistant-section" aria-labelledby="assistant-heading">
+        <h2 id="assistant-heading">Follow up</h2>
+        <p class="assistant-intro">
+          Ask about anything on the board — delivery windows, minimum orders, why two
+          dealers disagree.
+        </p>
+        <div id="app"></div>
+      </section>
+
+      <section class="disclosure" aria-labelledby="disclosure-heading">
+        <h2 id="disclosure-heading">What is real here, and what is not</h2>
+        <dl class="disclosure-list">
+          <dt>Working</dt>
+          <dd>
+            The agent networks, the browser runtime, the cross-origin calls to each dealer,
+            the consent step before every contact, and the arithmetic behind every total.
+          </dd>
+          <dt>Representative</dt>
+          <dd>
+            The three dealers are published by this project to demonstrate the protocol.
+            They are fictional businesses in an invented town, Ilara Junction. Their prices
+            are drawn from dated published Nigerian market reporting, cited on each dealer's
+            own page.
+          </dd>
+          <dt>Not real</dt>
+          <dd>
+            This is not live dealer inventory and nothing here can be bought. No order you
+            place goes anywhere.
+          </dd>
+        </dl>
+      </section>
+    </main>
+
+    <footer class="wrap">
+      <p>
+        Ọjà is an entry in the Open Agentic Web Challenge, built to the Worldwide Agentic
+        Web MVP Profile 0.3. Open source, MIT licensed.
+      </p>
+    </footer>
+  </body>
+</html>

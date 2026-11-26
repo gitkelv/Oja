@@ -1,0 +1,69 @@
+{
+  "brand": "Sabo Road Materials",
+  "networks": [
+    {
+      "name": "sabo_road",
+      "front_man": "sabo_price_desk",
+      "hocon": "./sabo_road.network.json",
+      "description": "Building-materials prices for Sabo Road, Kano State: cement, reinforcement bar and blocks, with minimum order and delivery window. Representative demonstration dealer.",
+      "tags": [
+        "agentified-website",
+        "nigeria",
+        "building-materials",
+        "dealer",
+        "demonstration"
+      ],
+      "sample_queries": [
+        "What does a bag of Dangote cement cost?",
+        "Price for 600 bags",
+        "Do you carry 16mm rebar?"
+      ]
+    }
+  ],
+  "llm_router": {
+    "base_url": "https://api.otari.ai/api/v1",
+    "mock": false,
+    "byok_router": "https://api.otari.ai/api/v1"
+  },
+  "allowed_peers": [],
+  "peer_policy": {
+    "mode": "closed",
+    "deny_origins": [],
+    "note": "Sabo Road Materials calls no peers. It answers its own price book only."
+  },
+  "theme": {
+    "primary": "#854F0B"
+  },
+  "deployment": {
+    "mode": "static",
+    "self_contained_runtime": true,
+    "browser_mock": false,
+    "direct_byok": true,
+    "direct_mcp_requires_cors": true,
+    "public_mcp_facade": false
+  },
+  "linking": {
+    "protocol": "nsdeploy-link/v1",
+    "exports": [
+      {
+        "network": "sabo_road",
+        "front_man": "sabo_price_desk",
+        "aliases": [
+          "sabo_road",
+          "sabo_price_desk"
+        ],
+        "url": "sabo_road"
+      }
+    ],
+    "imports": []
+  },
+  "disclosure": {
+    "status": "representative demonstration",
+    "note": "Sabo Road Materials is not a real business. Prices are drawn from dated published Nigerian market reporting, quoted as at 24 November 2026, and are not live inventory. Nothing here can be bought.",
+    "price_sources": [
+      "Nigerian Construction Cost Tracker Q3 2026 — northern states typically run 10 to 20 per cent below Lagos for cement and blocks",
+      "Daily Trust, 2026 — Kano benchmark supply price reporting",
+      "Legit.ng dealer price reporting, 2026 — northern dealer quotes"
+    ]
+  }
+}

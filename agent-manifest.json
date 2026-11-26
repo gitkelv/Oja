@@ -69,5 +69,23 @@
   "disclosure": {
     "status": "representative demonstration",
     "note": "The three dealer sites Ọjà contacts are published by this project to demonstrate the protocol. The dealers are fictional businesses in an invented town. Their prices are drawn from dated published market reporting, cited on each dealer's page. This is not live dealer inventory and nothing here can be bought."
+  },
+  "deployment": {
+    "mode": "static",
+    "self_contained_runtime": true,
+    "browser_mock": false,
+    "direct_byok": true,
+    "direct_mcp_requires_cors": true,
+    "public_mcp_facade": false
+  },
+  "actions": {
+    "version": 1,
+    "module": "./site-actions.js",
+    "agentTools": [
+      "compute_order_total",
+      "record_quote",
+      "compare_quotes"
+    ],
+    "note": "Ọjà's actions are local to this origin: arithmetic and the quote board. Ọjà calls peer dealers but publishes no actions for other sites to call, so it ships no action bridge."
   }
 }
