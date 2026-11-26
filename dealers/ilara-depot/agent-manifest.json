@@ -5,7 +5,7 @@
       "name": "ilara_depot",
       "front_man": "ilara_price_desk",
       "hocon": "./ilara_depot.network.json",
-      "description": "Building-materials prices for Ilara Junction, Lagos State: cement, reinforcement bar and blocks, with minimum order and delivery window. Representative demonstration dealer.",
+      "description": "Building-materials prices for Ilara Junction, Lagos State: cement, reinforcement bar and blocks, with minimum order and delivery window, answered by a single price desk. Representative demonstration dealer.",
       "tags": [
         "agentified-website",
         "nigeria",

@@ -5,7 +5,7 @@
   "llm_config": {
     "model_name": "gpt-4o-mini"
   },
-  "max_steps": 12,
+  "max_steps": 8,
   "commondefs": {
     "replacement_strings": {
       "price_book": "PRICE BOOK — quoted as at 18 November 2026. Figures drawn from published Nigerian market reporting; see the sources block below.\n\nCement, 50kg bag, collected:\n- Dangote: 11,000 naira per bag\n- BUA: 11,200 naira per bag\n- Lafarge: 11,300 naira per bag\nBulk: full truckload of 900 bags, 10,850 naira per bag, any single brand.\nMinimum order: 100 bags.\n\nReinforcement bar, collected:\n- 12mm, per length: 9,800 naira\n- 16mm, per length: 17,200 naira\nMinimum order: 10 lengths.\n\nBlocks, nine inch, collected: 680 naira each. Minimum order 500.\n\nDelivery inside the FCT: 95,000 naira per truckload, 2 to 4 working days. No delivery outside the FCT.\n\nSOURCES for these figures: Daily Trust market survey of Utako and other Abuja building-materials markets, 2026 — BUA at about 11,200 and Dangote at 10,800 to 11,000 per bag; Nigerian Construction Cost Tracker Q3 2026 — block and rebar ranges.",
