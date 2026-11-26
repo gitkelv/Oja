@@ -14,6 +14,33 @@ class BoardState {
     this._spread = null;
     this._request = "";
     this._expected = [];
+    this._consent = null;
+  }
+
+  /**
+   * Ask the visitor to approve contacting one dealer.
+   *
+   * The profile requires approval before each third-party contact, and the
+   * reference runtime asks for it inside its chat panel. On this page that panel
+   * is closed by default, so the question was being asked where nobody could
+   * answer it and the run waited forever. Consent belongs on the board anyway:
+   * it is asked exactly where that dealer's card is about to appear.
+   *
+   * :param request: label, origin, requestText and a decide callback.
+   */
+  setConsent(request) {
+    this._consent = request;
+    this.render();
+    const card = document.querySelector(".quote-card-consent button");
+    if (card) card.focus();
+  }
+
+  /**
+   * Clear the pending approval once it has been answered.
+   */
+  clearConsent() {
+    this._consent = null;
+    this.render();
   }
 
   /**
@@ -135,8 +162,14 @@ class BoardState {
     grid.className = "quote-grid";
     for (const q of this._quotes) grid.appendChild(BoardState.card(q));
     const heard = new Set(this._quotes.map((q) => BoardState.key(q.dealer)));
+    const asking = this._consent ? BoardState.key(this._consent.label) : null;
     for (const name of this._expected) {
-      if (!heard.has(BoardState.key(name))) grid.appendChild(BoardState.waitingCard(name));
+      const k = BoardState.key(name);
+      if (heard.has(k)) continue;
+      grid.appendChild(k === asking ? BoardState.consentCard(this._consent) : BoardState.waitingCard(name));
+    }
+    if (this._consent && !this._expected.some((n) => BoardState.key(n) === asking)) {
+      grid.appendChild(BoardState.consentCard(this._consent));
     }
     root.appendChild(grid);
     if (this._spread) root.appendChild(BoardState.spreadPanel(this._spread));
@@ -153,6 +186,44 @@ class BoardState {
    */
   static key(name) {
     return String(name || "").toLowerCase().split(",")[0].replace(/[^a-z0-9]/g, "");
+  }
+
+  /**
+   * Build the card that asks permission to contact one dealer.
+   *
+   * :param request: label, origin, requestText and decide.
+   * :return: The card element.
+   */
+  static consentCard(request) {
+    const el = document.createElement("article");
+    el.className = "quote-card quote-card-consent";
+
+    const h = document.createElement("h3");
+    h.textContent = request.label;
+    el.appendChild(h);
+
+    const ask = document.createElement("p");
+    ask.className = "consent-ask";
+    ask.textContent = "Contact this dealer for a quote?";
+    el.appendChild(ask);
+
+    const origin = document.createElement("p");
+    origin.className = "consent-origin";
+    origin.textContent = request.origin;
+    el.appendChild(origin);
+
+    const actions = document.createElement("div");
+    actions.className = "consent-actions";
+    for (const [label, decision] of [["Allow", "allow"], ["Always", "always"], ["Decline", "decline"]]) {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.textContent = label;
+      if (decision === "decline") b.className = "ghost";
+      b.addEventListener("click", () => request.decide(decision), { once: true });
+      actions.appendChild(b);
+    }
+    el.appendChild(actions);
+    return el;
   }
 
   /**

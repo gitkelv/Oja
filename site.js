@@ -29,6 +29,7 @@ class Site {
     try {
       const { engine } = await boot("#app", { originUrl: location.origin + Site.basePath() });
       Site.engine = engine;
+      Site.takeOverConsent(engine);
     } catch (err) {
       Site.showBootFailure(err);
       return;
@@ -50,6 +51,36 @@ class Site {
   static basePath() {
     const path = location.pathname.replace(/\/[^/]*$/, "");
     return path === "/" ? "" : path;
+  }
+
+  /**
+   * Move the approval question out of the runtime's chat panel and onto the board.
+   *
+   * The profile requires the visitor to approve each third-party contact. The
+   * reference runtime asks inside its chat, which on this page sits closed behind
+   * a summary, so the question would be asked where nobody could answer it and the
+   * run would wait forever. The runtime's own handler is kept as a fallback for
+   * anything the board cannot place, so no contact ever happens unasked.
+   *
+   * :param engine: The booted runtime engine.
+   */
+  static takeOverConsent(engine) {
+    const runtimeHandler = engine.onConsent;
+    engine.onConsent = (info) => {
+      const label = info?.peerLabel;
+      if (!label) return runtimeHandler ? runtimeHandler(info) : Promise.resolve("decline");
+      return new Promise((resolve) => {
+        Board.setConsent({
+          label,
+          origin: info.peerOrigin || "",
+          requestText: info.requestText || "",
+          decide: (decision) => {
+            Board.clearConsent();
+            resolve(decision);
+          },
+        });
+      });
+    };
   }
 
   /**
@@ -121,6 +152,7 @@ class Site {
     try {
       await Site.engine.run(question);
     } catch (err) {
+      Board.clearConsent();
       Site.showAskError(`The dealers could not be asked: ${err?.message || err}`);
     } finally {
       if (button) {

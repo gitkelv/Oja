@@ -249,3 +249,26 @@ footer h2 { font-size: 1rem; margin: 0 0 1rem; }
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
+
+/* Approval, asked on the board rather than in the chat panel. The profile
+   requires the visitor to approve each third-party contact, so this card stands
+   where that dealer's answer is about to appear. */
+.quote-card-consent { background: var(--green-wash); border-color: var(--green-line); }
+.quote-card-consent h3 { color: var(--green-deep); }
+.consent-ask { margin: .3rem 0 .1rem; font-size: .95rem; color: var(--ink); }
+.consent-origin {
+  margin: 0 0 .9rem; font-size: .8rem; color: var(--ink-soft);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  word-break: break-all;
+}
+.consent-actions { display: flex; gap: .5rem; flex-wrap: wrap; margin-top: auto; }
+.consent-actions button {
+  font: inherit; font-size: .9rem; font-weight: 500;
+  min-height: 44px; padding: .5rem 1rem; cursor: pointer;
+  color: #fff; background: var(--green);
+  border: 1px solid var(--green); border-radius: var(--radius);
+}
+.consent-actions button:hover { background: var(--green-deep); border-color: var(--green-deep); }
+.consent-actions button:focus-visible { outline: 2px solid var(--green-deep); outline-offset: 2px; }
+.consent-actions button.ghost { color: var(--ink-soft); background: transparent; border-color: var(--line-strong); }
+.consent-actions button.ghost:hover { color: var(--red-ink); border-color: var(--red-line); background: var(--red-wash); }
