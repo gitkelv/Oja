@@ -124,31 +124,6 @@ h1 {
 .board-section { padding-bottom: 2.5rem; }
 .panel-section { padding-bottom: 3rem; }
 
-/* the agent panel is a tool, not the product. It stays closed until wanted. */
-
-#assistant-details {
-  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
-}
-#assistant-details > summary {
-  cursor: pointer; padding: 1rem 1.2rem; list-style: none;
-  display: flex; flex-direction: column; gap: .15rem; min-height: 44px;
-}
-#assistant-details > summary::-webkit-details-marker { display: none; }
-#assistant-details > summary:focus-visible { outline: 2px solid var(--green); outline-offset: -2px; border-radius: var(--radius); }
-.summary-title { font-weight: 500; }
-.summary-hint { font-size: .88rem; color: var(--ink-faint); }
-#app { border-top: 1px solid var(--line); padding: .5rem; min-height: 9rem; }
-
-/* footer carries the disclosure: present and findable, not shouted */
-
-footer { border-top: 1px solid var(--line); background: var(--card); padding: 2.5rem 0 3.5rem; }
-footer h2 { font-size: 1rem; margin: 0 0 1rem; }
-.disclosure-list { margin: 0 0 1.75rem; display: grid; gap: .55rem 1.5rem; grid-template-columns: 8rem 1fr; }
-.disclosure-list dt { font-weight: 500; color: var(--green-deep); font-size: .92rem; }
-.disclosure-list dd { margin: 0; color: var(--ink-soft); max-width: var(--measure); font-size: .92rem; }
-.colophon { margin: 0; font-size: .85rem; color: var(--ink-faint); }
-.colophon a { color: var(--green-deep); }
-
 /* board */
 
 .board-empty {
@@ -236,20 +211,6 @@ footer h2 { font-size: 1rem; margin: 0 0 1rem; }
   padding: 0.5rem;
 }
 
-
-@media (max-width: 34rem) {
-  body { font-size: 16px; }
-  .hero { padding: 2rem 0 1.75rem; }
-  .disclosure-list { grid-template-columns: 1fr; gap: .1rem; }
-  .disclosure-list dd { margin-bottom: .8rem; }
-  .quote-price { font-size: 1.6rem; }
-  .ask-form button { flex: 1 1 100%; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
-}
-
 /* Approval, asked on the board rather than in the chat panel. The profile
    requires the visitor to approve each third-party contact, so this card stands
    where that dealer's answer is about to appear. */
@@ -272,3 +233,133 @@ footer h2 { font-size: 1rem; margin: 0 0 1rem; }
 .consent-actions button:focus-visible { outline: 2px solid var(--green-deep); outline-offset: 2px; }
 .consent-actions button.ghost { color: var(--ink-soft); background: transparent; border-color: var(--line-strong); }
 .consent-actions button.ghost:hover { color: var(--red-ink); border-color: var(--red-line); background: var(--red-wash); }
+
+/* the agent panel is a tool, not the product. It stays closed until wanted. */
+
+#assistant-details {
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+}
+#assistant-details > summary {
+  cursor: pointer; padding: 1rem 1.2rem; list-style: none;
+  display: flex; flex-direction: column; gap: .15rem; min-height: 44px;
+}
+#assistant-details > summary::-webkit-details-marker { display: none; }
+#assistant-details > summary:focus-visible { outline: 2px solid var(--green); outline-offset: -2px; border-radius: var(--radius); }
+.summary-title { font-weight: 500; }
+.summary-hint { font-size: .88rem; color: var(--ink-faint); }
+#app { border-top: 1px solid var(--line); padding: .5rem; min-height: 9rem; }
+
+/* sections below the tool: the explanation, not the product */
+
+.section-lede { max-width: var(--measure); color: var(--ink-soft); margin: 0 0 1.75rem; }
+.eyebrow {
+  margin: 0 0 .9rem; font-size: .78rem; font-weight: 500;
+  letter-spacing: .09em; text-transform: uppercase; color: var(--green-deep);
+}
+h1 em { font-family: var(--display); font-style: italic; font-weight: 600; }
+
+.masthead-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.masthead-link { font-size: .92rem; color: var(--ink-soft); text-decoration: none; padding: .5rem 0; }
+.masthead-link:hover { color: var(--green-deep); }
+
+h2 { font-family: var(--display); font-weight: 500; font-size: clamp(1.45rem, 4.4vw, 2rem); letter-spacing: -0.012em; margin: 0 0 .6rem; }
+
+/* how it works */
+
+.how { background: var(--card); border-block: 1px solid var(--line); padding: 3.5rem 0; }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); }
+.step { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.4rem 1.5rem 1.6rem; }
+.step-number { display: block; font-family: var(--display); font-size: 2.1rem; font-weight: 600; line-height: 1; color: var(--green); margin-bottom: 1.4rem; }
+.step h3 { font-size: 1.05rem; margin: 0 0 .4rem; }
+.step p { margin: 0; color: var(--ink-soft); font-size: .94rem; }
+.step-last { background: var(--green); border-color: var(--green); }
+.step-last .step-number, .step-last h3 { color: #fff; }
+.step-last p { color: #D6E7E0; }
+
+/* rules the page keeps */
+
+.rules { background: var(--ink); color: #fff; padding: 3.5rem 0; }
+.rules h2 { color: #fff; }
+.section-lede-dark { color: #A9ADA4; }
+.rules-list { margin: 0; border: 1px solid #343630; border-radius: var(--radius); overflow: hidden; }
+.rule { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: .95rem 1.2rem; border-bottom: 1px solid #343630; }
+.rule:last-child { border-bottom: 0; }
+.rule dt { font-size: .96rem; }
+.rule dd { margin: 0; font-size: .8rem; letter-spacing: .06em; text-transform: uppercase; color: #8FCBB8; flex: none; }
+
+/* dealers */
+
+.dealers-section { padding: 3.5rem 0; }
+.dealer-cards { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); }
+.dealer-card {
+  display: flex; flex-direction: column; gap: .2rem;
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 1.3rem 1.4rem; text-decoration: none; color: inherit;
+}
+.dealer-card:hover { border-color: var(--green-line); }
+.dealer-card:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+.dealer-card h3 { font-size: 1.05rem; margin: 0; color: var(--green-deep); }
+.dealer-place { margin: 0; font-size: .9rem; color: var(--ink-soft); }
+.dealer-note { margin: .5rem 0 1rem; font-size: .85rem; color: var(--ink-faint); }
+.dealer-go { margin-top: auto; font-size: .88rem; font-weight: 500; color: var(--green); }
+.dealer-go::after { content: " \2192"; }
+
+/* limits */
+
+.limits { background: var(--card); border-block: 1px solid var(--line); padding: 3.5rem 0; }
+.limit { border-top: 1px solid var(--line); padding: 1.3rem 0; max-width: var(--measure); }
+.limit:first-of-type { border-top: 0; padding-top: 0; }
+.limit h3 { font-size: 1.02rem; margin: 0 0 .3rem; }
+.limit p { margin: 0; color: var(--ink-soft); font-size: .94rem; }
+
+/* closing */
+
+.closing { padding: 3.5rem 0; text-align: center; }
+.closing .wrap { display: flex; flex-direction: column; align-items: center; }
+.mark-lg { width: 40px; height: 40px; margin-bottom: 1rem; }
+.closing h2 { margin-bottom: .4rem; }
+.closing p { margin: 0 0 1.6rem; color: var(--ink-soft); max-width: 36ch; }
+.closing-cta {
+  display: inline-flex; align-items: center; min-height: 44px;
+  padding: .8rem 1.6rem; font-weight: 500; text-decoration: none;
+  color: #fff; background: var(--green); border-radius: var(--radius);
+}
+.closing-cta:hover { background: var(--green-deep); }
+.closing-cta:focus-visible { outline: 2px solid var(--green-deep); outline-offset: 2px; }
+
+/* footer */
+
+footer { border-top: 1px solid var(--line); background: var(--card); padding: 2rem 0 3rem; }
+.colophon { margin: 0; font-size: .85rem; color: var(--ink-faint); }
+.colophon a { color: var(--green-deep); }
+
+@media (max-width: 34rem) {
+  body { font-size: 16px; }
+  .hero { padding: 2rem 0 1.75rem; }
+  .how, .rules, .dealers-section, .limits, .closing { padding: 2.5rem 0; }
+  .quote-price { font-size: 1.6rem; }
+  .ask-form button { flex: 1 1 100%; }
+  .rule { flex-direction: column; gap: .2rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+
+/* A dealer that has not answered yet. Asking three dealers one at a time takes
+   minutes; showing who is still to come is the difference between a page that
+   looks slow and a page that looks broken. */
+.quote-card-waiting { background: transparent; border-style: dashed; }
+.quote-card-waiting h3 { color: var(--ink-faint); }
+.quote-waiting { margin: .3rem 0 0; font-size: .9rem; color: var(--ink-faint); }
+
+/* The dealer disclosure, rendered by the page rather than generated by each dealer.
+   A page-owned disclosure cannot be softened or omitted by a model having an off turn,
+   and three agents writing the same sentence is time the buyer waits through. */
+.quote-status {
+  margin: .7rem 0 0;
+  padding-top: .6rem;
+  border-top: 1px solid var(--line);
+  font-size: .8rem;
+  color: var(--ink-faint);
+}

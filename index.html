@@ -13,14 +13,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500&family=Inter:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap"
     />
     <link rel="stylesheet" href="styles.css" />
     <script type="module" src="site.js"></script>
   </head>
   <body>
     <header class="masthead">
-      <div class="wrap">
+      <div class="wrap masthead-inner">
         <a class="brand" href="./" aria-label="Ọjà, home">
           <svg class="mark" viewBox="0 0 48 48" aria-hidden="true">
             <rect x="6" y="22" width="9" height="20" rx="2" />
@@ -29,13 +29,15 @@
           </svg>
           <span class="wordmark">Ọjà</span>
         </a>
+        <a class="masthead-link" href="#how">How it works</a>
       </div>
     </header>
 
     <main>
       <section class="hero">
         <div class="wrap">
-          <h1>What does cement actually cost today?</h1>
+          <p class="eyebrow">Price discovery for Nigerian building materials</p>
+          <h1>What does cement <em>actually</em> cost today?</h1>
           <p class="lede">
             A bag runs ₦9,600 or ₦14,000 depending on who you ask and when. Ask once here,
             and every dealer answers for themselves.
@@ -85,33 +87,160 @@
           </details>
         </div>
       </section>
+
+      <section class="how" id="how">
+        <div class="wrap">
+          <h2>How it works</h2>
+          <p class="section-lede">Three steps. Nobody signs up, and no dealer joins anything.</p>
+          <ol class="steps">
+            <li class="step">
+              <span class="step-number">1</span>
+              <h3>Say what you need</h3>
+              <p>
+                The material, how much of it, and where it is going. Delivery is usually what
+                decides the real cost, so where it is going matters as much as how much.
+              </p>
+            </li>
+            <li class="step">
+              <span class="step-number">2</span>
+              <h3>Approve each dealer</h3>
+              <p>
+                Before a dealer is contacted you see exactly which site is about to be asked,
+                and you allow or decline it. Nothing is contacted without you.
+              </p>
+            </li>
+            <li class="step step-last">
+              <span class="step-number">3</span>
+              <h3>Compare what came back</h3>
+              <p>
+                Each answer lands on its own card with its own date. Where dealers disagree,
+                you see the gap and who is on each side of it.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="rules">
+        <div class="wrap">
+          <h2>Rules this page keeps</h2>
+          <p class="section-lede section-lede-dark">
+            Enforced in the page's own code, not left to an agent's judgement.
+          </p>
+          <dl class="rules-list">
+            <div class="rule">
+              <dt>Quotes are never averaged into one figure</dt>
+              <dd>always</dd>
+            </div>
+            <div class="rule">
+              <dt>No price appears from a dealer you did not approve</dt>
+              <dd>always</dd>
+            </div>
+            <div class="rule">
+              <dt>Totals are calculated, never written by a model</dt>
+              <dd>always</dd>
+            </div>
+            <div class="rule">
+              <dt>A dealer that failed is shown, with its reason</dt>
+              <dd>always</dd>
+            </div>
+            <div class="rule">
+              <dt>A price older than a week is marked stale</dt>
+              <dd>always</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <section class="dealers-section">
+        <div class="wrap">
+          <h2>The dealers, and where their prices come from</h2>
+          <p class="section-lede">
+            Each dealer publishes its own prices on its own website. Ọjà holds none of them.
+          </p>
+          <div class="dealer-cards">
+            <a class="dealer-card" href="https://oja-ilara-depot.pages.dev/">
+              <h3>Ilara Depot</h3>
+              <p class="dealer-place">Ilara Junction, Lagos State</p>
+              <p class="dealer-note">Lagos market reporting, quoted 20 November 2026</p>
+              <span class="dealer-go">See its price book</span>
+            </a>
+            <a class="dealer-card" href="https://oja-adunni-supply.pages.dev/">
+              <h3>Adunni Building Supply</h3>
+              <p class="dealer-place">Gwarinpa, Federal Capital Territory</p>
+              <p class="dealer-note">Abuja market survey, quoted 18 November 2026</p>
+              <span class="dealer-go">See its price book</span>
+            </a>
+            <a class="dealer-card" href="https://oja-sabo-road.pages.dev/">
+              <h3>Sabo Road Materials</h3>
+              <p class="dealer-place">Sabo Road, Kano State</p>
+              <p class="dealer-note">Northern state reporting, quoted 24 November 2026</p>
+              <span class="dealer-go">See its price book</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="limits">
+        <div class="wrap">
+          <h2>Know the limits</h2>
+          <p class="section-lede">Better you hear it here than find out later.</p>
+          <div class="limit">
+            <h3>These dealers are not real businesses.</h3>
+            <p>
+              They are published by this project to demonstrate the protocol, and they trade in
+              an invented town. Nothing here can be bought.
+            </p>
+          </div>
+          <div class="limit">
+            <h3>The prices are representative, not live.</h3>
+            <p>
+              They come from dated published Nigerian market reporting, cited on each dealer's
+              own page. A real deployment would carry each dealer's own figures.
+            </p>
+          </div>
+          <div class="limit">
+            <h3>It takes a couple of minutes.</h3>
+            <p>
+              Dealers are asked one at a time, and each is a separate website running its own
+              agent inside your browser. That wait is the cost of asking real parties
+              separately instead of reading one list.
+            </p>
+          </div>
+          <div class="limit">
+            <h3>It only knows what a dealer publishes.</h3>
+            <p>
+              If a dealer does not state its stock, Ọjà says so rather than guessing. An empty
+              field means nobody was told, not that the answer is zero.
+            </p>
+          </div>
+          <div class="limit">
+            <h3>There is no single price, and there should not be.</h3>
+            <p>
+              Published Nigerian cement prices already contradict each other by nearly double.
+              Averaging them turns a disagreement you could have acted on into a confident
+              number that is wrong.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="closing">
+        <div class="wrap">
+          <svg class="mark mark-lg" viewBox="0 0 48 48" aria-hidden="true">
+            <rect x="6" y="22" width="9" height="20" rx="2" />
+            <rect x="19" y="12" width="9" height="30" rx="2" />
+            <rect class="mark-accent" x="32" y="17" width="9" height="25" rx="2" />
+          </svg>
+          <h2>Ask the dealers.</h2>
+          <p>No account, no sign-up, and no dealer had to join anything for this to work.</p>
+          <a class="closing-cta" href="#ask-input">Ask a question</a>
+        </div>
+      </section>
     </main>
 
     <footer>
       <div class="wrap">
-        <h2>What is real here, and what is not</h2>
-        <dl class="disclosure-list">
-          <dt>Working</dt>
-          <dd>
-            The agent networks, the browser runtime, the cross-origin calls to each dealer,
-            the approval step before every contact, and the arithmetic behind every total.
-          </dd>
-          <dt>Representative</dt>
-          <dd>
-            The three dealers are published by this project to demonstrate the protocol. They
-            are fictional businesses in an invented town, Ilara Junction. Their prices come
-            from dated published Nigerian market reporting, cited on each dealer's own page.
-          </dd>
-          <dt>Not real</dt>
-          <dd>This is not live dealer inventory, and nothing here can be bought.</dd>
-          <dt>No single price</dt>
-          <dd>
-            Ọjà never merges quotes into one figure. Published Nigerian cement prices already
-            contradict each other by nearly double, and averaging contradictory sources is
-            what makes those lists useless: it turns a disagreement you could have acted on
-            into a confident number that is wrong.
-          </dd>
-        </dl>
         <p class="colophon">
           An entry in the Open Agentic Web Challenge, built to the Worldwide Agentic Web MVP
           Profile 0.3. <a href="./checks/">Conformance checks</a> · Open source, MIT licensed.
