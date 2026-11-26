@@ -18,6 +18,11 @@
   --amber-wash: #faeeda;
   --red: #a32d2d;
   --red-wash: #fcebeb;
+  --red-line: #f09595;
+  --red-ink: #791f1f;
+  --green-line: #5dcaa5;
+  --amber-line: #ef9f27;
+  --amber-ink: #633806;
   --radius: 10px;
   --measure: 62ch;
 }
@@ -105,8 +110,11 @@ h3 { font-size: 1rem; margin: 0 0 0.35rem; }
   background: transparent;
   border: 1px dashed var(--line-strong);
   border-radius: 999px;
-  padding: 0.35rem 0.8rem;
+  /* 44px minimum: these are tapped with a thumb, not clicked with a mouse. */
+  min-height: 44px;
+  padding: 0.5rem 1rem;
   cursor: pointer;
+  text-align: left;
 }
 .example:hover { color: var(--green-deep); border-color: var(--green); border-style: solid; }
 .example:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
@@ -164,16 +172,16 @@ h3 { font-size: 1rem; margin: 0 0 0.35rem; }
 .quote-date-stale { color: var(--amber); background: var(--amber-wash); border-radius: 6px; padding: 0.4rem 0.55rem; border-top: 0; }
 .quote-note { margin: 0.6rem 0 0; font-size: 0.86rem; color: var(--ink-soft); }
 
-.quote-card-failed { background: var(--red-wash); border-color: #f09595; }
+.quote-card-failed { background: var(--red-wash); border-color: var(--red-line); }
 .quote-card-failed h3 { color: var(--red); }
-.quote-failed-reason { margin: 0.3rem 0 0; font-size: 0.9rem; color: #791f1f; }
+.quote-failed-reason { margin: 0.3rem 0 0; font-size: 0.9rem; color: var(--red-ink); }
 
 /* spread */
 
 .spread {
   margin-top: 1.25rem;
   background: var(--green-wash);
-  border: 1px solid #5dcaa5;
+  border: 1px solid var(--green-line);
   border-radius: var(--radius);
   padding: 1.1rem 1.2rem;
 }
@@ -181,9 +189,9 @@ h3 { font-size: 1rem; margin: 0 0 0.35rem; }
 .spread-line { margin: 0.2rem 0 0; font-size: 1.05rem; font-weight: 500; }
 .spread-gap { margin: 0.25rem 0 0; color: var(--green-deep); }
 
-.spread-wide { background: var(--amber-wash); border-color: #ef9f27; }
+.spread-wide { background: var(--amber-wash); border-color: var(--amber-line); }
 .spread-wide h3, .spread-wide .spread-gap { color: var(--amber); }
-.spread-warning { margin: 0.7rem 0 0; font-size: 0.92rem; color: #633806; max-width: var(--measure); }
+.spread-warning { margin: 0.7rem 0 0; font-size: 0.92rem; color: var(--amber-ink); max-width: var(--measure); }
 
 /* assistant */
 
@@ -233,4 +241,11 @@ footer p { color: var(--ink-faint); font-size: 0.86rem; max-width: var(--measure
   font-size: .8rem;
   color: var(--ink-faint);
 }
-.quote-card-failed .quote-status { border-top-color: #f09595; color: #791f1f; }
+.quote-card-failed .quote-status { border-top-color: #f09595; color: var(--red-ink); }
+
+/* A dealer that has not answered yet. Asking three dealers one at a time takes
+   minutes; showing who is still to come is the difference between a page that
+   looks slow and a page that looks broken. */
+.quote-card-waiting { background: transparent; border-style: dashed; }
+.quote-card-waiting h3 { color: var(--ink-faint); }
+.quote-waiting { margin: .3rem 0 0; font-size: .9rem; color: var(--ink-faint); }

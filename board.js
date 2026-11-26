@@ -13,6 +13,21 @@ class BoardState {
     this._quotes = [];
     this._spread = null;
     this._request = "";
+    this._expected = [];
+  }
+
+  /**
+   * Name the dealers that are about to be asked.
+   *
+   * Asking three dealers one at a time takes minutes. Without this the page sits
+   * empty and the buyer cannot tell whether it is working, so every dealer appears
+   * at once as a waiting card and fills in when it answers.
+   *
+   * :param names: The dealer names, in the order they will be asked.
+   */
+  setExpected(names) {
+    this._expected = Array.isArray(names) ? [...names] : [];
+    this.render();
   }
 
   /**
@@ -52,7 +67,12 @@ class BoardState {
    * :param quote: The dealer's answer.
    */
   addQuote(quote) {
-    const i = this._quotes.findIndex((q) => q.dealer === quote.dealer);
+    BoardState.announce(
+      quote.answered
+        ? `${quote.dealer} answered${Number.isFinite(quote.unit_price_naira) ? `: ₦${quote.unit_price_naira.toLocaleString("en-NG")} per ${quote.unit || "unit"}` : ", with no price"}.`
+        : `${quote.dealer} did not answer.`,
+    );
+    const i = this._quotes.findIndex((q) => BoardState.key(q.dealer) === BoardState.key(quote.dealer));
     if (i >= 0) this._quotes[i] = { ...quote, at: Date.now() };
     else this._quotes.push({ ...quote, at: Date.now() });
     this.render();
@@ -64,6 +84,9 @@ class BoardState {
    * :param spread: Lowest, highest, gap and gap percentage.
    */
   setSpread(spread) {
+    BoardState.announce(
+      `All dealers in. ₦${spread.gap.toLocaleString("en-NG")} between the lowest and highest, ${spread.gapPercent} per cent.`,
+    );
     this._spread = spread;
     this.render();
   }
@@ -78,6 +101,20 @@ class BoardState {
   }
 
   // --- rendering ------------------------------------------------------------
+
+  /**
+   * Say what just changed, for a screen reader.
+   *
+   * The board itself is not a live region: it is redrawn whole on every change,
+   * so announcing it would read every card again each time a dealer answers.
+   * This announces only the new fact.
+   *
+   * :param text: One sentence describing the change.
+   */
+  static announce(text) {
+    const el = document.querySelector("#board-status");
+    if (el) el.textContent = text;
+  }
 
   /**
    * Redraw the board from current state.
@@ -97,8 +134,43 @@ class BoardState {
     const grid = document.createElement("div");
     grid.className = "quote-grid";
     for (const q of this._quotes) grid.appendChild(BoardState.card(q));
+    const heard = new Set(this._quotes.map((q) => BoardState.key(q.dealer)));
+    for (const name of this._expected) {
+      if (!heard.has(BoardState.key(name))) grid.appendChild(BoardState.waitingCard(name));
+    }
     root.appendChild(grid);
     if (this._spread) root.appendChild(BoardState.spreadPanel(this._spread));
+  }
+
+  /**
+   * Reduce a dealer name to something comparable.
+   *
+   * A dealer agent may answer as "Ilara Depot" or "Ilara Depot, Ilara Junction,
+   * Lagos State", and a waiting card must not sit next to the answer it belongs to.
+   *
+   * :param name: The dealer name as given.
+   * :return: A comparison key.
+   */
+  static key(name) {
+    return String(name || "").toLowerCase().split(",")[0].replace(/[^a-z0-9]/g, "");
+  }
+
+  /**
+   * Build a card for a dealer that has not answered yet.
+   *
+   * :param name: The dealer's name.
+   * :return: The card element.
+   */
+  static waitingCard(name) {
+    const el = document.createElement("article");
+    el.className = "quote-card quote-card-waiting";
+    const h = document.createElement("h3");
+    h.textContent = name;
+    const p = document.createElement("p");
+    p.className = "quote-waiting";
+    p.textContent = "Waiting for this dealer…";
+    el.append(h, p);
+    return el;
   }
 
   /**
@@ -204,7 +276,7 @@ class BoardState {
     el.className = gapPercent > 10 ? "spread spread-wide" : "spread";
 
     const h = document.createElement("h3");
-    h.textContent = "The spread";
+    h.textContent = "The gap between them";
     el.appendChild(h);
 
     const line = document.createElement("p");

@@ -23,9 +23,10 @@
       <section class="ask" aria-labelledby="ask-heading">
         <h1 id="ask-heading">Ask every dealer at once</h1>
         <p class="lede">
-          Cement prices in Nigeria move within days, and the price lists online contradict
-          each other by nearly double. Ọjà asks dealers directly, from your browser, and
-          shows you what each one said — with the date they said it.
+          A bag of cement can cost ₦9,600 or ₦14,000 depending on who you ask and when.
+          The price lists online contradict each other by nearly double, and dealers change
+          their rates within days. Ask here once and every dealer answers for themselves,
+          with the date their price was good for.
         </p>
 
         <form id="ask-form" class="ask-form">
@@ -50,17 +51,19 @@
       <section class="board-section" aria-labelledby="board-heading">
         <h2 id="board-heading">The quote board</h2>
         <p id="board-empty" class="board-empty">
-          Nothing asked yet. Each dealer you contact will appear here as its own card, with
-          its own price and its own date. Ọjà will never merge them into a single figure.
+          Ask above, and every dealer answers here on its own card — price, minimum order,
+          delivery and the date it quoted. Expect a couple of minutes: each dealer is a
+          separate business being asked a real question.
         </p>
-        <div id="board" aria-live="polite"></div>
+        <div id="board"></div>
+        <p id="board-status" class="visually-hidden" role="status" aria-live="polite"></p>
       </section>
 
       <section class="assistant-section" aria-labelledby="assistant-heading">
         <h2 id="assistant-heading">Follow up</h2>
         <p class="assistant-intro">
-          Ask about anything on the board — delivery windows, minimum orders, why two
-          dealers disagree.
+          Ask about anything on the board — what a quantity would actually cost, whether a
+          dealer can reach you, why two of them disagree.
         </p>
         <div id="app"></div>
       </section>

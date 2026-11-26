@@ -16,6 +16,11 @@ class Site {
   static engine = null;
 
   /**
+   * Dealer names from the manifest, shown as waiting cards during a long run.
+   */
+  static dealerNames = [];
+
+  /**
    * Boot the runtime and wire the page.
    *
    * :return: Nothing. Failures are reported on the page, not thrown away.
@@ -30,6 +35,7 @@ class Site {
     }
     Site.wireForm();
     Site.wireExamples();
+    await Site.loadDealerNames();
   }
 
   /**
@@ -44,6 +50,21 @@ class Site {
   static basePath() {
     const path = location.pathname.replace(/\/[^/]*$/, "");
     return path === "/" ? "" : path;
+  }
+
+  /**
+   * Read the dealer names the manifest declares, so the board can show who is
+   * being asked while the answers are still coming.
+   */
+  static async loadDealerNames() {
+    try {
+      const res = await fetch(`${Site.basePath()}/agent-manifest.json`);
+      const manifest = await res.json();
+      const names = (manifest.linking?.imports || []).map((i) => i.label).filter(Boolean);
+      if (names.length) Site.dealerNames = names;
+    } catch {
+      // Not fatal: without it the board simply fills in as answers arrive.
+    }
   }
 
   /**
@@ -92,6 +113,7 @@ class Site {
     Site.clearAskError();
     Board.reset();
     Board.setRequest(question);
+    Board.setExpected(Site.dealerNames);
     if (button) {
       button.disabled = true;
       button.textContent = "Asking…";
