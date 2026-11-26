@@ -74,5 +74,12 @@
   },
   "cruse": {
     "version": 1
+  },
+  "execution_limits": {
+    "deadline_ms": 240000,
+    "max_remote_calls": 6,
+    "max_calls_per_peer": 1,
+    "max_agent_calls": 40,
+    "note": "Three dealers asked one at a time cannot finish inside the reference runtime's 90 seconds. The profile says limits should be configurable by network; the runtime clamps these to its own maximums, so declaring a large value here cannot buy unbounded execution."
   }
 }

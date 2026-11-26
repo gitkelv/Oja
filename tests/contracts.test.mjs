@@ -7,6 +7,7 @@
 
 import { readFileSync, readdirSync } from "node:fs";
 import { AgentNetwork, validateNetwork } from "../runtime/kernel.js";
+import { compositionBudget } from "../runtime/engine.js";
 
 let failures = 0;
 
@@ -77,6 +78,19 @@ const origins = Object.values(links.networks.oja).map((u) => new URL(u).origin);
 check("each dealer is a distinct origin", new Set(origins).size === origins.length, origins.join(" "));
 check("every dealer origin is in allowed_peers",
   origins.every((o) => (manifest.allowed_peers || []).map((p) => p.replace(/\/$/, "")).includes(o)));
+
+console.log("\nExecution budget is configurable but clamped");
+const ojaBudget = compositionBudget(oja);
+check("Ọjà's declared deadline is honoured", ojaBudget.deadlineMs === 240000, `${ojaBudget.deadlineMs}`);
+check("a network declaring nothing keeps the reference defaults",
+  compositionBudget({}).deadlineMs === 90000 && compositionBudget({}).maxAgentCalls === 24);
+const greedy = compositionBudget({ execution_limits: { deadline_ms: 99999999, max_remote_calls: 500, max_agent_calls: 9999 } });
+check("a greedy network cannot exceed the runtime maximum",
+  greedy.deadlineMs === 300000 && greedy.maxRemoteCalls === 12 && greedy.maxAgentCalls === 80,
+  `${greedy.deadlineMs} ${greedy.maxRemoteCalls} ${greedy.maxAgentCalls}`);
+const junk = compositionBudget({ execution_limits: { deadline_ms: "forever", max_agent_calls: -3 } });
+check("junk limits fall back rather than disabling the budget",
+  junk.deadlineMs === 90000 && junk.maxAgentCalls === 24);
 
 console.log(failures === 0 ? "\nAll contracts hold.\n" : `\n${failures} contract(s) broken.\n`);
 process.exit(failures === 0 ? 0 : 1);

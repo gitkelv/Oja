@@ -108,6 +108,37 @@ export function selectPeerRouter(callerRouter) {
   return { baseUrl: callerRouter.baseUrl, mock: callerRouter.mock === true, publisherFunded: callerRouter.publisherFunded === true };
 }
 
+
+// Execution budget for one query.
+//
+// Changed by Ọjà. The reference hard-coded a 90-second deadline and a four-call
+// remote limit, which a network cannot raise. The profile says these limits SHOULD
+// be configurable by network, subject to a runtime maximum, so they are read from
+// the network here and clamped. A network that declares nothing keeps the original
+// numbers, and nothing can exceed the ceilings below however large a value it asks
+// for: a published network is untrusted input and must not be able to buy itself
+// unbounded execution.
+const RUNTIME_MAX = { deadlineMs: 300_000, remoteCalls: 12, agentCalls: 80 };
+
+export function compositionBudget(config = {}) {
+  const limits = config.execution_limits || {};
+  const clamp = (value, fallback, ceiling) => {
+    const n = Number(value);
+    if (!Number.isFinite(n) || n <= 0) return fallback;
+    return Math.min(Math.floor(n), ceiling);
+  };
+  return {
+    remoteCalls: 0,
+    peerCalls: new Map(),
+    maxRemoteCalls: clamp(limits.max_remote_calls, 4, RUNTIME_MAX.remoteCalls),
+    maxCallsPerPeer: clamp(limits.max_calls_per_peer, 1, RUNTIME_MAX.remoteCalls),
+    agentCalls: 0,
+    maxAgentCalls: clamp(limits.max_agent_calls, 24, RUNTIME_MAX.agentCalls),
+    deadlineMs: clamp(limits.deadline_ms, 90_000, RUNTIME_MAX.deadlineMs),
+    deadline: Date.now() + clamp(limits.deadline_ms, 90_000, RUNTIME_MAX.deadlineMs),
+  };
+}
+
 export class Engine {
   constructor({ originUrl, trace, sandboxWorkerUrl, byokKey, routerOverride } = {}) {
     this.originUrl = (originUrl || (typeof location !== "undefined" ? location.origin : "")).replace(/\/$/, "");
@@ -544,15 +575,7 @@ export class Engine {
         isTop: true,
         history: this.history,
         turnControl: _turnControl,
-        composition: {
-          remoteCalls: 0,
-          peerCalls: new Map(),
-          maxRemoteCalls: 4,
-          maxCallsPerPeer: 1,
-          agentCalls: 0,
-          maxAgentCalls: 24,
-          deadline: Date.now() + 90_000,
-        },
+        composition: compositionBudget(this.top.network?.config),
       });
       const message = interactionMessage(userText, interaction);
       const result = await runAgent(ctx, this.top.network.findFrontMan(), message, runSpan, ctx_chain(ctx, this.top));
