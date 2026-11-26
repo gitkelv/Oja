@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ọjà — conformance checks</title>
+    <meta
+      name="description"
+      content="Ọjà's conformance against the Worldwide Agentic Web MVP Profile 0.3, including the checks about refusing: an invalid network, a denied origin, and a bounded run."
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="checks.css" />
+    <script type="module" src="checks.js"></script>
+  </head>
+  <body>
+    <header class="masthead">
+      <div class="wrap">
+        <p class="wordmark">Ọjà</p>
+        <p class="tagline">Conformance checks</p>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <section>
+        <h1>What this page proves</h1>
+        <p class="lede">
+          The specification's section 6 lists seven interoperability checks. Most of them
+          describe a system working. Three describe it refusing — an invalid network, a
+          denied origin, a run that exceeds its budget. Those are the ones that are easy to
+          skip, because a runtime that fails quietly looks identical to one that works until
+          the day it doesn't.
+        </p>
+        <p class="lede">
+          The checks below run in your browser when this page loads. They need no API key
+          and no model, because none of them involve asking a model anything.
+        </p>
+      </section>
+
+      <section>
+        <h2>Checks that run here</h2>
+
+        <article class="check" id="invalid-network">
+          <h3>An invalid network is refused before any model call</h3>
+          <p class="check-summary">Running…</p>
+          <pre class="check-detail"></pre>
+        </article>
+
+        <article class="check" id="denied-origin">
+          <h3>An origin outside the policy is refused</h3>
+          <p class="check-summary">Running…</p>
+          <pre class="check-detail"></pre>
+        </article>
+
+        <article class="check" id="allowed-origin">
+          <h3>Each dealer is a genuinely separate origin, and permitted</h3>
+          <p class="check-summary">Running…</p>
+          <pre class="check-detail"></pre>
+        </article>
+
+        <article class="check" id="bounded-execution">
+          <h3>Execution is bounded, and a cycle is stopped by budget</h3>
+          <p class="check-summary">Running…</p>
+          <pre class="check-detail"></pre>
+        </article>
+
+        <article class="check" id="router-ownership">
+          <h3>The caller owns inference; a peer cannot change it</h3>
+          <p class="check-summary">Running…</p>
+          <pre class="check-detail"></pre>
+        </article>
+      </section>
+
+      <section>
+        <h2>Checks that need a live run</h2>
+        <p class="lede">
+          These cannot be proved by reading files, so they are demonstrated on the main
+          site with a connected model rather than claimed here.
+        </p>
+        <ul class="pending">
+          <li>A two-agent network published and run from an ordinary HTTPS host.</li>
+          <li>
+            An exact named network loaded from a second origin, after approval, and run
+            locally in this browser.
+          </li>
+          <li>A grounded capability called through a registered local site action.</li>
+          <li>
+            With a visitor key active, the dealer site never receives it and cannot change
+            the router.
+          </li>
+          <li>
+            Private context is absent at the dealer unless a named field is explicitly
+            allowed.
+          </li>
+        </ul>
+      </section>
+
+      <section class="disclosure">
+        <h2>Honesty</h2>
+        <p>
+          A failing check stays on this page. Publishing checks and then hiding the ones
+          that fail would be worse than publishing none, so a failure here is shown in red
+          and left there.
+        </p>
+      </section>
+    </main>
+
+    <footer class="wrap">
+      <p>
+        <a href="../">Back to Ọjà</a> · Worldwide Agentic Web MVP Profile 0.3 · MIT licensed.
+      </p>
+    </footer>
+  </body>
+</html>

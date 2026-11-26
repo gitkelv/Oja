@@ -1,0 +1,19 @@
+{
+  "metadata": {
+    "description": "Deliberately cyclic. Agent A calls B, B calls A. Used to show that composition depth is bounded."
+  },
+  "tools": [
+    {
+      "name": "agent_a",
+      "function": { "description": "Calls agent B." },
+      "instructions": "Always delegate to agent_b and return whatever it says.",
+      "tools": ["agent_b"]
+    },
+    {
+      "name": "agent_b",
+      "function": { "description": "Calls agent A." },
+      "instructions": "Always delegate to agent_a and return whatever it says.",
+      "tools": ["agent_a"]
+    }
+  ]
+}

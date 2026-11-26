@@ -1,0 +1,18 @@
+{
+  "metadata": {
+    "description": "Deliberately invalid. Used to show that Ọjà refuses a malformed network instead of running it."
+  },
+  "tools": [
+    {
+      "name": "desk",
+      "function": { "description": "References an agent that does not exist." },
+      "instructions": "Delegate to the pricing agent.",
+      "tools": ["agent_that_does_not_exist"]
+    },
+    {
+      "name": "desk",
+      "function": { "description": "A duplicate agent name, which is not allowed." },
+      "instructions": "Duplicate."
+    }
+  ]
+}

@@ -90,5 +90,10 @@
       "compare_quotes"
     ],
     "note": "Ọjà's actions are local to this origin: arithmetic and the quote board. Ọjà calls peer dealers but publishes no actions for other sites to call, so it ships no action bridge."
+  },
+  "conformance": {
+    "profile": "Worldwide Agentic Web MVP Profile 0.3",
+    "checks_page": "./checks/",
+    "note": "Checks that need no model run in the browser on that page. Checks needing a live model run are demonstrated on the main site and are listed there as pending rather than claimed."
   }
 }
